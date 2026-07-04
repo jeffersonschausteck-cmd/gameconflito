@@ -1,0 +1,281 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-magenta: var(--neon-magenta);
+
+  --color-game-bg: #08111F;
+  --color-game-panel: #111827;
+  --color-game-border: #1F2937;
+  --color-game-blue: #00D4FF;
+  --color-game-red: #FF4B5C;
+  --color-game-green: #2CEAA3;
+  --color-game-yellow: #FFC857;
+  --color-game-text: #F3F4F6;
+
+  --font-display: "Orbitron", "Inter", sans-serif;
+  --font-sans: "Rajdhani", "Inter", sans-serif;
+
+  --shadow-glow: 0 0 40px color-mix(in oklab, var(--primary) 45%, transparent);
+  --shadow-glow-strong: 0 0 80px color-mix(in oklab, var(--primary) 60%, transparent);
+
+  --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-glow));
+  --gradient-hero: radial-gradient(ellipse at top, color-mix(in oklab, var(--primary) 22%, transparent), transparent 60%);
+}
+
+:root {
+  --radius: 0.5rem;
+  /* Dark cyberpunk by default */
+  --background: oklch(0.13 0.03 250);
+  --foreground: oklch(0.96 0.02 220);
+
+  --surface: oklch(0.17 0.035 252);
+  --surface-elevated: oklch(0.21 0.04 254);
+
+  --card: oklch(0.17 0.035 252);
+  --card-foreground: oklch(0.96 0.02 220);
+  --popover: oklch(0.17 0.035 252);
+  --popover-foreground: oklch(0.96 0.02 220);
+
+  --primary: oklch(0.72 0.18 230);
+  --primary-foreground: oklch(0.1 0.03 250);
+  --primary-glow: oklch(0.82 0.16 200);
+
+  --secondary: oklch(0.22 0.04 254);
+  --secondary-foreground: oklch(0.96 0.02 220);
+  --muted: oklch(0.22 0.04 254);
+  --muted-foreground: oklch(0.7 0.03 230);
+  --accent: oklch(0.65 0.22 320);
+  --accent-foreground: oklch(0.98 0 0);
+
+  --destructive: oklch(0.62 0.24 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.3 0.05 250 / 60%);
+  --input: oklch(0.3 0.05 250 / 60%);
+  --ring: oklch(0.72 0.18 230);
+
+  --neon-cyan: oklch(0.85 0.17 200);
+  --neon-magenta: oklch(0.7 0.25 330);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+}
+
+/* ============ Animations ============ */
+@keyframes grid-pan {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 80px 80px, 80px 80px; }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--primary)) drop-shadow(0 0 24px color-mix(in oklab, var(--primary) 50%, transparent)); }
+  50% { filter: drop-shadow(0 0 14px var(--primary)) drop-shadow(0 0 48px color-mix(in oklab, var(--primary) 70%, transparent)); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.92; }
+}
+
+@keyframes legal-tile-pulse {
+  0%, 100% {
+    border-color: color-mix(in oklab, var(--neon-cyan) 70%, transparent);
+    box-shadow:
+      inset 0 0 12px color-mix(in oklab, var(--neon-cyan) 35%, transparent),
+      0 0 14px color-mix(in oklab, var(--neon-cyan) 35%, transparent);
+  }
+  50% {
+    border-color: color-mix(in oklab, var(--neon-cyan) 100%, transparent);
+    box-shadow:
+      inset 0 0 20px color-mix(in oklab, var(--neon-cyan) 55%, transparent),
+      0 0 24px color-mix(in oklab, var(--neon-cyan) 60%, transparent);
+  }
+}
+
+@utility cyber-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--primary) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--primary) 18%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px;
+  animation: grid-pan 20s linear infinite;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+@utility text-glow {
+  text-shadow:
+    0 0 10px color-mix(in oklab, var(--primary) 60%, transparent),
+    0 0 30px color-mix(in oklab, var(--primary) 40%, transparent);
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@utility animate-flicker {
+  animation: flicker 4s ease-in-out infinite;
+}
+
+@utility legal-tile {
+  border: 1.5px solid color-mix(in oklab, var(--neon-cyan) 70%, transparent);
+  border-radius: 0.25rem;
+  animation: legal-tile-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes combat-flash {
+  0% {
+    background: color-mix(in oklab, var(--neon-magenta) 0%, transparent);
+    box-shadow: 0 0 0px transparent;
+  }
+  25% {
+    background: color-mix(in oklab, var(--neon-magenta) 55%, transparent);
+    box-shadow:
+      inset 0 0 24px color-mix(in oklab, var(--neon-magenta) 70%, transparent),
+      0 0 40px color-mix(in oklab, var(--neon-magenta) 65%, transparent);
+  }
+  100% {
+    background: transparent;
+    box-shadow: 0 0 0px transparent;
+  }
+}
+
+@keyframes combat-shake {
+  0%, 100% { transform: translate(0, 0); }
+  15% { transform: translate(-3px, 2px); }
+  30% { transform: translate(3px, -2px); }
+  45% { transform: translate(-2px, -3px); }
+  60% { transform: translate(2px, 3px); }
+  75% { transform: translate(-1px, 1px); }
+}
+
+@keyframes combat-winner-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 10px color-mix(in oklab, var(--neon-cyan) 85%, transparent))
+      drop-shadow(0 0 20px color-mix(in oklab, var(--neon-cyan) 60%, transparent));
+  }
+}
+
+@utility combat-flash {
+  animation: combat-flash 600ms ease-out forwards;
+  border-radius: 0.25rem;
+}
+
+@utility combat-shake {
+  animation: combat-shake 350ms ease-in-out;
+}
+
+@utility combat-winner-glow {
+  animation: combat-winner-glow 900ms ease-in-out;
+}
+
+@keyframes piece-reveal-pulse {
+  0% {
+    filter: drop-shadow(0 0 0 transparent);
+    transform: scale(1);
+  }
+  40% {
+    filter:
+      drop-shadow(0 0 12px color-mix(in oklab, var(--neon-cyan) 90%, transparent))
+      drop-shadow(0 0 22px color-mix(in oklab, var(--neon-cyan) 55%, transparent));
+    transform: scale(1.08);
+  }
+  100% {
+    filter: drop-shadow(0 0 0 transparent);
+    transform: scale(1);
+  }
+}
+
+@utility piece-reveal-pulse {
+  animation: piece-reveal-pulse 500ms ease-out;
+}
+
+@keyframes turn-banner-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scaleX(0.9);
+    letter-spacing: 0.6em;
+  }
+  60% {
+    opacity: 1;
+    letter-spacing: 0.4em;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleX(1);
+    letter-spacing: 0.4em;
+  }
+}
+
+.turn-banner {
+  animation: turn-banner-in 380ms ease-out both;
+  clip-path: polygon(
+    10px 0,
+    100% 0,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    0 100%,
+    0 10px
+  );
+}
